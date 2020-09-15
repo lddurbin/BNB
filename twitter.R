@@ -11,14 +11,12 @@ for_twitter <- tweet_data %>%
   ) %>%
   distinct(isbn, .keep_all = TRUE)
 
-tweet_status <- paste0(for_twitter$creator_tweet, ". ", for_twitter$title_tweet, " (", for_twitter$publisher, ") ", for_twitter$info)
-
 # I GOT THIS CODE FROM THE RTWEET PACKAGE SOURCE CODE BECAUSE IT DOESN'T HAVE A FUNCTION FOR UPLOADING MEDIA AND ATTACHING ALT TEXT
 if(!is.na(tweet_data %>% distinct(cover_thumbnail))) {
   source("get_cover_images.R")
   
   cover_filepath <- paste0("images/covers/", for_twitter %>% select(cover_filename))
-  tweet_status <- paste0(for_twitter$creator_tweet, ". ", for_twitter$title_tweet, " (", for_twitter$publisher, ") ", for_twitter$info)
+  tweet_status <- paste0(for_twitter$title_tweet, " (", for_twitter$publisher, ") ", for_twitter$info)
   
   media2upload <- httr::upload_file(cover_filepath)
   rurl <- "https://upload.twitter.com/1.1/media/upload.json"
@@ -30,7 +28,7 @@ if(!is.na(tweet_data %>% distinct(cover_thumbnail))) {
   tweet_response <- httr::POST(rurl, query = list(status = tweet_status, media_ids = media_id), token)
 } else {
   # BEWARE OR BOOKS WITH NO AUTHORS
-  tweet_status <- paste0(for_twitter$creator_tweet, ". ", for_twitter$title_tweet, " (", for_twitter$publisher, ")")
+  tweet_status <- paste0(for_twitter$title_tweet, " (", for_twitter$publisher, ")")
   
   rurl <- "https://api.twitter.com/1.1/statuses/update.json"
   tweet_response <- httr::POST(rurl, query = list(status = tweet_status), token)
