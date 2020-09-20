@@ -50,14 +50,17 @@ use_virtuoso <- function(rdf_file) {
 
 # Prepare a BNB RDF file for analysis
 process_BNB_data <- function(rdf_file) {
-  use_virtuoso(rdf_file) %>% 
+  topic_exclusions <- c("--Fiction", "--Juvenile fiction") %>%
+    paste(collapse = "|")
+  
+  use_virtuoso(rdf_file) %>%
     setNames(c("basic", "contributors", "creators", "topics", "publisher", "issued", "forthcoming", "isbn")) %>%
-    join_tibbles(c("id", "Dewey", "title")) %>% 
+    join_tibbles(c("id", "Dewey", "title")) %>%
     mutate(
       forthcoming = case_when(is.na(forthcoming) ~ FALSE, !is.na(forthcoming) ~ TRUE),
       filename = str_remove(basename(rdf_file), ".rdf.gz")
       ) %>% 
-    filter(as.double(Dewey) >= 900 & !str_sub(Dewey, 1, 3) %in% c("910", "912", "913", "914", "915", "916", "917", "918", "919"))
+    filter(!str_detect(topic, topic_exclusions))
 }
 
 # Query Google Books API based on ISBN, convert result into tibble

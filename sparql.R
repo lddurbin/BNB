@@ -1,21 +1,33 @@
-# Basic fields
+# Topics
 sparql_1 <-
+  'SELECT ?id ?Dewey ?title ?topic
+WHERE {
+?id dct:subject ?b.
+?b skos:notation ?Dewey.
+FILTER (contains(?topic,"History") || contains(?topic,"Biograph") || contains(?topic,"Memoir"))
+
+?id dct:title ?title.
+
+?id dct:subject ?d.
+?d rdfs:label ?topic.
+}'
+
+# Basic fields
+sparql_2 <-
   'SELECT ?id ?Dewey ?title
 WHERE {
 ?id dct:subject ?b.
 ?b skos:notation ?Dewey.
-FILTER(STRSTARTS(STR(?Dewey), "9")).
 
 ?id dct:title ?title.
 }'
 
 # Contributors
-sparql_2 <-
+sparql_3 <-
   'SELECT ?id ?Dewey ?contributor ?title
 WHERE {
 ?id dct:subject ?b.
 ?b skos:notation ?Dewey.
-FILTER(STRSTARTS(STR(?Dewey), "9")).
 
 ?id dct:title ?title.
 
@@ -24,31 +36,16 @@ FILTER(STRSTARTS(STR(?Dewey), "9")).
 }'
 
 # Creators
-sparql_3 <-
+sparql_4 <-
   'SELECT ?id ?Dewey ?creator ?title
 WHERE {
 ?id dct:subject ?b.
 ?b skos:notation ?Dewey.
-FILTER(STRSTARTS(STR(?Dewey), "9")).
 
 ?id dct:title ?title.
 
 ?id dct:creator ?c.
 ?c rdfs:label ?creator.
-}'
-
-# Topics
-sparql_4 <-
-  'SELECT ?id ?Dewey ?title ?topic
-WHERE {
-?id dct:subject ?b.
-?b skos:notation ?Dewey.
-FILTER(STRSTARTS(STR(?Dewey), "9")).
-
-?id dct:title ?title.
-
-?id dct:subject ?d.
-?d rdfs:label ?topic.
 }'
 
 # Publishers
@@ -57,7 +54,6 @@ sparql_5 <-
 WHERE {
 ?id dct:subject ?b.
 ?b skos:notation ?Dewey.
-FILTER(STRSTARTS(STR(?Dewey), "9")).
 
 ?id dct:title ?title.
 
@@ -71,7 +67,6 @@ sparql_6 <-
 WHERE {
 ?id dct:subject ?b.
 ?b skos:notation ?Dewey.
-FILTER(STRSTARTS(STR(?Dewey), "9")).
 
 ?id dct:title ?title.
 
@@ -84,7 +79,6 @@ sparql_7 <-
 WHERE {
 ?id dct:subject ?b.
 ?b skos:notation ?Dewey.
-FILTER(STRSTARTS(STR(?Dewey), "9")).
 
 ?id dct:title ?title.
 
@@ -99,7 +93,6 @@ sparql_8 <-
 WHERE {
 ?id dct:subject ?b.
 ?b skos:notation ?Dewey.
-FILTER(STRSTARTS(STR(?Dewey), "9")).
 
 ?id dct:title ?title.
 
