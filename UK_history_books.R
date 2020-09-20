@@ -20,12 +20,14 @@ searchterms <- c("history", "biograph", "memoir") %>%
 
 tweet_data <- history_books %>%
   filter(forthcoming == TRUE & to_tweet == TRUE & !is.na(cover_thumbnail)) %>%
-  filter(str_detect(str_to_lower(categories), searchterms) == TRUE) %>% 
-  group_by(isbn) %>% 
-  mutate(sample_id = cur_group_id()) %>%
-  ungroup() %>% 
-  subset(sample_id %in% sample(unique(.$sample_id), 1))
+  filter(str_detect(str_to_lower(categories), searchterms) == TRUE)
 
 if(nrow(tweet_data) > 0) {
+  tweet_data_sample <- tweet_data %>% 
+    group_by(isbn) %>% 
+    mutate(sample_id = cur_group_id()) %>%
+    ungroup() %>% 
+    subset(sample_id %in% sample(unique(.$sample_id), 1))
+  
   source("twitter.R")
 }

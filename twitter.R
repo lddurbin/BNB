@@ -2,7 +2,7 @@ library("rtweet") # do I still need this?
 
 source("twitter_credentials.R")
 
-for_twitter <- tweet_data %>%
+for_twitter <- tweet_data_sample %>%
   mutate(
     title_tweet = str_trunc(title, 140, ellipsis = "[...]"),
     title_tweet = str_replace_all(title_tweet, " : ", ": "),
@@ -23,7 +23,7 @@ if(!is.na(for_twitter$publisher_twitter_handle)) {
 }
 
 # I GOT THIS CODE FROM THE RTWEET PACKAGE SOURCE CODE BECAUSE IT DOESN'T HAVE A FUNCTION FOR UPLOADING MEDIA AND ATTACHING ALT TEXT
-if(!is.na(tweet_data %>% distinct(cover_thumbnail))) {
+if(!is.na(tweet_data_sample %>% distinct(cover_thumbnail))) {
   source("get_cover_images.R")
   
   cover_filepath <- paste0("images/covers/", for_twitter %>% select(cover_filename))
