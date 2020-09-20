@@ -19,7 +19,7 @@ searchterms <- c("history", "biograph", "memoir") %>%
   paste(collapse = "|")
 
 tweet_data <- history_books %>%
-  filter(forthcoming == TRUE & !is.na(cover_thumbnail)) %>%
+  filter(forthcoming == TRUE & to_tweet == TRUE & !is.na(cover_thumbnail)) %>%
   filter((str_detect(str_to_lower(topic), searchterms) == TRUE) | (str_detect(str_to_lower(categories), searchterms) == TRUE)) %>% 
   group_by(isbn) %>% 
   mutate(sample_id = cur_group_id()) %>%
