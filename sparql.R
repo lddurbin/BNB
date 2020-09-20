@@ -4,7 +4,7 @@ sparql_1 <-
 WHERE {
 ?id dct:subject ?b.
 ?b skos:notation ?Dewey.
-FILTER (contains(?topic,"History") || contains(?topic,"Biograph") || contains(?topic,"Memoir"))
+FILTER (contains(?topic,"History"))
 
 ?id dct:title ?title.
 
