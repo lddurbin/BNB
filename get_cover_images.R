@@ -4,7 +4,7 @@ covers <- for_twitter %>%
   mutate(cover_image_filename = paste(filename, isbn, sep = "_")) %>% 
   select(cover_image_filename, cover_thumbnail)
 
-urls <- covers %>% pull(cover_thumbnail) # TRY ZOOM = 3 FOR HI-RES COVERS?
+urls <- covers %>% pull(cover_thumbnail)
 destinations <- paste0("images/covers/", covers %>% pull(cover_image_filename), ".jpg")
 
 download.file(urls, destinations, method = "libcurl")
