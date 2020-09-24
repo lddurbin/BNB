@@ -15,12 +15,11 @@ if(length(new_zip_files) > 0) {
 
 history_books <- read_csv("processed data/history_books.csv", col_types = "cccccccclcclDcccc")
 
-searchterms <- c("history", "biograph", "memoir") %>%
-  paste(collapse = "|")
+# searchterms <- c("history", "biograph", "memoir") %>%
+#   paste(collapse = "|")
 
 tweet_data <- history_books %>%
-  filter(forthcoming == TRUE & to_tweet == TRUE & !is.na(cover_thumbnail)) %>%
-  filter(str_detect(str_to_lower(categories), searchterms) == TRUE)
+  filter(forthcoming == TRUE & to_tweet == TRUE & !is.na(cover_thumbnail))
 
 if(nrow(tweet_data) > 0) {
   tweet_data_sample <- tweet_data %>% 

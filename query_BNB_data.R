@@ -11,7 +11,7 @@ vos_start()
 new_BNB <- lapply(gzipped_rdfs, process_BNB_data) %>%
   bind_rows() %>% 
   distinct(Dewey, title, creator, contributor, topic, .keep_all = TRUE) %>% 
-  select(id, Dewey, title, contributor, creator, topic, publisher, issued, forthcoming, isbn, filename, to_tweet) %>% 
+  select(id, Dewey, title, contributor, creator, topic, publisher, issued, forthcoming, isbn, filename) %>% 
   mutate(to_tweet = case_when(forthcoming == TRUE ~ TRUE, forthcoming == FALSE ~ FALSE)) # forthcoming books to be tweeted
 
 vos_kill() # we don't want Virtuoso running all the time, do we? 
