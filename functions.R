@@ -99,3 +99,16 @@ unlist_it <- function(x, cycles) {
   
   as_tibble(x)
 }
+
+# Twitter Media Upload ----------------------------------------------------
+# Upload media item to Twitter and return its ID
+twitter_media_upload <- function(media_item) {
+  media2upload <- httr::upload_file(media_item)
+  rurl <- "https://upload.twitter.com/1.1/media/upload.json"
+  
+  media_response <- httr::POST(rurl, body = list(media = media2upload), token)
+  httr::content(media_response) %>%
+    as_tibble() %>%
+    distinct(as.character(media_id_string)) %>%
+    pull()
+}
