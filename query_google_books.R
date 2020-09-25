@@ -1,9 +1,8 @@
 library("httr") # For connecting to the API
 
 isbns <- new_BNB %>%
-  filter(forthcoming == TRUE) %>% 
+  filter(forthcoming == TRUE & !is.na(isbn)) %>% 
   distinct(isbn) %>%
-  filter(!is.na(isbn)) %>% 
   pull()
 
 if(length(isbns) > 0) {

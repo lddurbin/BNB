@@ -16,7 +16,7 @@ if(length(new_zip_files) > 0) {
 history_books <- read_csv("processed data/history_books.csv", col_types = "cccccccclcclDcccc")
 
 tweet_data <- history_books %>%
-  filter(forthcoming == TRUE & to_tweet == TRUE & !is.na(cover_thumbnail))
+  filter(to_tweet == TRUE & !is.na(cover_thumbnail))
 
 if(nrow(tweet_data) > 0) {
   tweet_data_sample <- tweet_data %>% 

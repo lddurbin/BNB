@@ -3,7 +3,7 @@ library("virtuoso") # Virtuoso increases performance compared to querying the RD
 source("prefixes.R")
 source("sparql.R") # we use multiple SPARQL queries instead of OPTIONAL due to performance issues
 
-gzipped_rdfs <- unzip_and_gzip(paste("raw data/zipped/", new_zip_files, ".zip", sep = "")) %>% map(1)
+gzipped_rdfs <- unzip_and_gzip(paste0("raw data/zipped/", new_zip_files, ".zip")) %>% map(1)
 
 vos_install() # only need to do this once
 vos_start()
