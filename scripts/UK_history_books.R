@@ -2,15 +2,15 @@ setwd("/Users/leedurbin/Code/BNB") # for cron
 
 library("tidyverse")
 
-source("functions.R")
+source("scripts/functions.R")
 
-source("download_BNB_data.R")
+source("scripts/download_BNB_data.R")
 
 new_zip_files <- unprocessed_files("processed data/BNB_history_books.csv")
 
 if(length(new_zip_files) > 0) {
-  source("query_BNB_data.R")
-  source("enrich_BNB_data.R")
+  source("scripts/query_BNB_data.R")
+  source("scripts/enrich_BNB_data.R")
 }
 
 history_books <- read_csv("processed data/history_books.csv", col_types = "cccccccclcclDcccc")
@@ -25,5 +25,5 @@ if(nrow(tweet_data) > 0) {
     ungroup() %>% 
     subset(sample_id %in% sample(unique(.$sample_id), 1))
   
-  source("twitter.R")
+  source("scripts/twitter.R")
 }

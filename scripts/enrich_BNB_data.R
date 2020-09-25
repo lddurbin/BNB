@@ -1,5 +1,5 @@
 if(length(new_BNB) > 0) {
-  source("query_google_books.R")
+  source("scripts/query_google_books.R")
   
   new_GoogleBooks <- GoogleBooks_data %>%
     select(4:9) %>% 

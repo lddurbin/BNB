@@ -1,7 +1,7 @@
 library("virtuoso") # Virtuoso increases performance compared to querying the RDF files directly
 
-source("prefixes.R")
-source("sparql.R") # we use multiple SPARQL queries instead of OPTIONAL due to performance issues
+source("scripts/prefixes.R")
+source("scripts/sparql.R") # we use multiple SPARQL queries instead of OPTIONAL due to performance issues
 
 gzipped_rdfs <- unzip_and_gzip(paste0("raw data/zipped/", new_zip_files, ".zip")) %>% map(1)
 

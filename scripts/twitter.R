@@ -1,4 +1,4 @@
-source("twitter_credentials.R")
+source("scripts/twitter_credentials.R")
 
 # Prepare tweet text ------------------------------------------------------
 for_twitter <- tweet_data_sample %>%
@@ -14,7 +14,7 @@ for_twitter <- left_join(for_twitter, publisher_twitter_handles) %>%
   ))
 
 # Send tweet, including cover image ---------------------------------------
-source("get_cover_images.R")
+source("scripts/get_cover_images.R")
 cover_filepath <- paste0("images/covers/", for_twitter %>% select(cover_filename))
 media_id <- twitter_media_upload(cover_filepath)
 
