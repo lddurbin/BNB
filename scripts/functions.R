@@ -101,7 +101,7 @@ unlist_it <- function(x, cycles) {
 }
 
 # Twitter Media Upload ----------------------------------------------------
-# Upload media item to Twitter and return its ID
+# Upload media item to Twitter and return its ID #
 twitter_media_upload <- function(media_item) {
   media2upload <- httr::upload_file(media_item)
   rurl <- "https://upload.twitter.com/1.1/media/upload.json"
@@ -111,4 +111,18 @@ twitter_media_upload <- function(media_item) {
     as_tibble() %>%
     distinct(as.character(media_id_string)) %>%
     pull()
+}
+
+# Twitter Add Alt Text ----------------------------------------------------
+# Add alt text to images uploaded to Twitter #
+twitter_add_alt_text <- function(media_id, alt_text_data) {
+  rurl <- "https://upload.twitter.com/1.1/media/metadata/create.json"
+  httr::POST(rurl, body = paste0('{"media_id":"', media_id, '", "alt_text": {"text":"', alt_text_data, '"}}'), token, encode = "raw")
+}
+
+# Twitter Post Tweet ------------------------------------------------------
+# Post a tweet to Twitter #
+twitter_post_tweet <- function(tweet_status, media_id) {
+  rurl <- "https://api.twitter.com/1.1/statuses/update.json"
+  httr::POST(rurl, query = list(status = tweet_status, media_ids = media_id), token)
 }

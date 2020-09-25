@@ -18,16 +18,11 @@ source("scripts/get_cover_images.R")
 cover_filepath <- paste0("images/covers/", for_twitter %>% select(cover_filename))
 media_id <- twitter_media_upload(cover_filepath)
 
-# alt_text_data = paste("Cover of the book called", for_twitter %>% distinct(title_tweet))
-# 
-# rurl <- "https://upload.twitter.com/1.1/media/metadata/create.json"
-# alt_text_response <- httr::POST(rurl, body = list(media_id = media_id, alt_text = list(text = alt_text_data)), token)
-# 
-# httr::content(alt_text_response)
+alt_text_data = paste("Cover of the book called", for_twitter %>% distinct(title_tweet))
+twitter_add_alt_text(media_id, alt_text_data)
 
 tweet_status <- paste0(for_twitter$title_tweet, " (", for_twitter$publisher_tweet, ") ", for_twitter$info)
-rurl <- "https://api.twitter.com/1.1/statuses/update.json"
-httr::POST(rurl, query = list(status = tweet_status, media_ids = media_id), token)
+twitter_post_tweet(tweet_status, media_id)
 
 # Delete cover image, mark data as tweeted --------------------------------
 unlink("images/covers/*")
