@@ -50,7 +50,7 @@ use_virtuoso <- function(rdf_file) {
 
 # Prepare a BNB RDF file for analysis
 process_BNB_data <- function(rdf_file) {
-  topic_exclusions <- c("--Fiction", "--Juvenile fiction") %>%
+  topic_exclusions <- c("--Fiction", "--Juvenile fiction", "--21st century") %>%
     paste(collapse = "|")
   
   use_virtuoso(rdf_file) %>%
