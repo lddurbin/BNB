@@ -122,9 +122,18 @@ twitter_add_alt_text <- function(media_id, alt_text_data) {
 
 # Twitter Post Tweet ------------------------------------------------------
 # Post a tweet to Twitter #
-twitter_post_tweet <- function(tweet_status, media_id) {
+twitter_post_tweet <- function(tweet_status, media_ids) {
   rurl <- "https://api.twitter.com/1.1/statuses/update.json"
-  httr::POST(rurl, query = list(status = tweet_status, media_ids = media_id), token)
+  httr::POST(rurl, query = list(status = tweet_status, media_ids = media_ids), token)
+}
+
+# Twitter Prepare Image ---------------------------------------------------
+# Upload an image to Twitter with alt text #
+twitter_prepare_image <- function(image, alt_text) {
+  media_id <- twitter_media_upload(image)
+  twitter_add_alt_text(media_id, alt_text)
+  
+  return(media_id)
 }
 
 # Split Text Block -----------------------------------------------------------

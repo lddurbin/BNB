@@ -1,6 +1,5 @@
 covers <- for_twitter %>%
   filter(!is.na(cover_thumbnail)) %>%
-  distinct(isbn, .keep_all = TRUE) %>%
   mutate(cover_image_filename = paste(filename, isbn, sep = "_")) %>% 
   select(cover_image_filename, cover_thumbnail)
 
