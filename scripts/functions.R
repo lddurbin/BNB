@@ -126,3 +126,22 @@ twitter_post_tweet <- function(tweet_status, media_id) {
   rurl <- "https://api.twitter.com/1.1/statuses/update.json"
   httr::POST(rurl, query = list(status = tweet_status, media_ids = media_id), token)
 }
+
+# Split Text Block -----------------------------------------------------------
+# Split a block of text into separate lines #
+split_text_block <- function(text_block, line_limit, text_limit) {
+  text_length <- str_length(text_block)
+  concatenated_extracts <- ""
+  
+  while(text_length > line_limit) {
+    text_extract <- str_match(str_trunc(text_block, line_limit), "(^.+)\\s")[, 2]
+    extract_length <- str_length(text_extract)
+    text_block <- str_sub(text_block, extract_length+2)
+    text_length <- str_length(text_block)
+    
+    concatenated_extracts <- paste(concatenated_extracts, text_extract, sep = "\n")
+  }
+  
+  processed_text_block <- paste(concatenated_extracts, text_block, sep = "\n")
+  return(str_trunc(processed_text_block, text_limit, ellipsis = "[...]"))
+}

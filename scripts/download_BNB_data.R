@@ -11,7 +11,7 @@ BNB_urls_hashed <- BNB_page %>%
   str_subset("/bnbrdf_n") 
 
 BNB_urls_truncated <- BNB_urls_hashed %>% str_replace("[^.zip]*$","")
-BNB_unmatched_indexes <- which(!BNB_urls_truncated %in% paste(slug, local_zips, sep = ""))
+BNB_unmatched_indexes <- which(!BNB_urls_truncated %in% paste0(slug, local_zips))
 
 if(length(BNB_unmatched_indexes) > 0) {
   target_slugs <- BNB_urls_hashed[BNB_unmatched_indexes]
