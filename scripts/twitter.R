@@ -22,7 +22,7 @@ cover_alt_text <- paste("Cover of the book called", for_twitter %>% distinct(tit
 synopsis_filepath <- paste0("images/synopses/", list.files("images/synopses/"))
 synopsis_alt_text <- for_twitter %>% distinct(synopsis) %>% str_trunc(995, ellipsis = "[...]")
 
-media_ids <- mapply(twitter_prepare_image, c(synopsis_filepath, cover_filepath), c(synopsis_alt_text, cover_alt_text)) %>% 
+media_ids <- mapply(twitter_prepare_image, c(cover_filepath, synopsis_filepath), c(cover_alt_text, synopsis_alt_text)) %>% 
   paste(collapse = ",")
 
 tweet_status <- paste0(for_twitter$title_tweet, " (", for_twitter$publisher_tweet, ") ", for_twitter$info)

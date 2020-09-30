@@ -66,7 +66,7 @@ prepare_to_save <- function(target_dest, column_types, new_data) {
 # Query Google Books ------------------------------------------------------
 # Query Google Books API based on ISBN, convert result into tibble #
 query_google_books <- function(isbn, fields) {
-  source("google_credentials.R")
+  source("scripts/google_credentials.R")
   
   GET(url = "https://www.googleapis.com/books/v1/volumes?", 
                  query = list(
