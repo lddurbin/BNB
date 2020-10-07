@@ -14,23 +14,29 @@ for_twitter <- left_join(for_twitter, publisher_twitter_handles) %>%
   ))
 
 # Prepare tweet images and post tweet ----------------------------------------------------
-source("scripts/get_cover_images.R")
-source("scripts/create_synopsis_image.R")
+media_items <- c()
+media_items_alt_text <- c()
 
-cover_filepath <- paste0("images/covers/", for_twitter %>% select(cover_filename))
-cover_alt_text <- paste("Cover of the book called", for_twitter %>% distinct(title_tweet))
-synopsis_filepath <- paste0("images/synopses/", list.files("images/synopses/"))
-synopsis_alt_text <- for_twitter %>% distinct(synopsis) %>% str_trunc(995, ellipsis = "[...]")
+if(!is.na(for_twitter$cover_thumbnail)) {
+  source("scripts/get_cover_images.R")
+  media_items <- c(media_items, paste0("images/covers/", list.files("images/covers/")))
+  media_items_alt_text <- c(media_items_alt_text, paste("Cover of the book called", for_twitter %>% distinct(title_tweet)))
+}
 
-media_ids <- mapply(twitter_prepare_image, c(cover_filepath, synopsis_filepath), c(cover_alt_text, synopsis_alt_text)) %>% 
+if(!is.na(for_twitter$synopsis)) {
+  source("scripts/create_synopsis_image.R")
+  media_items <- c(media_items, paste0("images/synopses/", list.files("images/synopses/")))
+  media_items_alt_text <- c(media_items_alt_text, for_twitter %>% distinct(synopsis) %>% str_trunc(995, ellipsis = "[...]"))
+}
+
+media_ids <- mapply(twitter_prepare_image, media_items, media_items_alt_text) %>% 
   paste(collapse = ",")
 
 tweet_status <- paste0(for_twitter$title_tweet, " (", for_twitter$publisher_tweet, ") ", for_twitter$info)
 twitter_post_tweet(tweet_status, media_ids)
 
 # Delete cover image and synopsis image, mark data as tweeted --------------------------------
-unlink("images/covers/*")
-unlink("images/synopses/*")
+unlink(c("images/covers/*", "images/synopses/*"))
 
 history_books %>%
   mutate(to_tweet = case_when(isbn == for_twitter$isbn ~ FALSE, to_tweet == TRUE ~ TRUE, to_tweet == FALSE ~ FALSE)) %>% 
