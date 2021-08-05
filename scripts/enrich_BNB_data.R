@@ -8,5 +8,5 @@ if(length(new_BNB) > 0) {
   
   joined_data <- left_join(new_BNB, new_GoogleBooks, by = "isbn")
   prepare_to_save("processed data/history_books.csv", "cccccccclcclDcccc", joined_data) %>% 
-    write_csv(path = "processed data/history_books.csv", col_names = TRUE)
+    write_csv(file = "processed data/history_books.csv", col_names = TRUE)
 }

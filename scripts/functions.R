@@ -52,7 +52,7 @@ join_tibbles <- function(tibbles, joins) {
   tibbles %>% reduce(left_join, by = joins)
 }
 
-# Preparwe to Save --------------------------------------------------------
+# Prepare to Save --------------------------------------------------------
 # Bind new data with existing data in order to to write it to a file #
 prepare_to_save <- function(target_dest, column_types, new_data) {
   if(file.exists(target_dest)) {
