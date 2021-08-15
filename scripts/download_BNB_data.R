@@ -1,6 +1,5 @@
 library("rvest") # Reads HTML pages, for downloading RDF files
 
-slug <- "/britishlibrary/~/media/bl/global/services/collection metadata/pdfs/bnb records rdf/"
 local_zips <- list.files("raw data/zipped", pattern = ".zip*") %>% str_to_lower()
 
 BNB_page <- read_html("https://www.bl.uk/collection-metadata/new-bnb-records")
