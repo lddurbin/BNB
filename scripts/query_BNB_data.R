@@ -18,10 +18,3 @@ vos_kill() # we don't want Virtuoso running all the time, do we?
 
 prepare_to_save("processed data/BNB_history_books.csv", "cccccccclccl", new_BNB) %>% 
   write_csv(file = "processed data/BNB_history_books.csv", col_names = TRUE)
-
-
-# new_BNB <- lapply("raw data/zipped/bnbrdf_N3634.rdf.gz", process_BNB_data) %>%
-#   bind_rows() %>%
-#   distinct(Dewey, title, creator, contributor, topic, .keep_all = TRUE) %>%
-#   select(id, Dewey, title, contributor, creator, topic, publisher, issued, forthcoming, isbn, filename) %>%
-#   mutate(to_tweet = case_when(forthcoming == TRUE ~ TRUE, forthcoming == FALSE ~ FALSE))

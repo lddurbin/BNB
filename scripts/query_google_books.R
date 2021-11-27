@@ -17,5 +17,5 @@ if(length(isbns) > 0) {
     distinct(author, isbn, info, .keep_all = TRUE)
   
     prepare_to_save("processed data/google_books.csv", "cccDccccc", GoogleBooks_data) %>%
-      write_csv(path = "processed data/google_books.csv", col_names = TRUE)
+      write_csv(file = "processed data/google_books.csv", col_names = TRUE)
 }
